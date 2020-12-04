@@ -11,6 +11,7 @@ import {
   isRTL,
   isVisible,
   getNextActiveElement,
+  isTouchEnabledDevice,
   reflow,
   triggerTransitionEnd,
   typeCheckConfig
@@ -120,7 +121,7 @@ class Carousel extends BaseComponent {
 
     this._config = this._getConfig(config)
     this._indicatorsElement = SelectorEngine.findOne(SELECTOR_INDICATORS, this._element)
-    this._touchSupported = 'ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0
+    this._touchSupported = isTouchEnabledDevice || navigator.maxTouchPoints > 0
     this._pointerEvent = Boolean(window.PointerEvent)
 
     this._addEventListeners()
