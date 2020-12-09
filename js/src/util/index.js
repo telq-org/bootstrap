@@ -309,7 +309,7 @@ const getNextActiveElement = (list, activeElement, shouldGetNext, isCycleAllowed
   return list[Math.max(0, Math.min(index, listLength - 1))]
 }
 
-const isTouchEnabledDevice = 'ontouchstart' in document.documentElement
+const isTouchEnabledDevice = () => 'ontouchstart' in document.documentElement
 
 export {
   getElement,
