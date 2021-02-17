@@ -17,7 +17,8 @@ import {
   isRTL,
   isVisible,
   noop,
-  typeCheckConfig
+  typeCheckConfig,
+  getDocument
 } from './util/index'
 import EventHandler from './dom/event-handler'
 import Manipulator from './dom/manipulator'
@@ -151,9 +152,9 @@ class Dropdown extends BaseComponent {
     // empty mouseover listeners to the body's immediate children;
     // only needed because of broken event delegation on iOS
     // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
-    if ('ontouchstart' in document.documentElement &&
+    if ('ontouchstart' in this._document.documentElement &&
       !parent.closest(SELECTOR_NAVBAR_NAV)) {
-      [].concat(...document.body.children)
+      [].concat(...this._document.body.children)
         .forEach(elem => EventHandler.on(elem, 'mouseover', noop))
     }
 
@@ -478,11 +479,13 @@ class Dropdown extends BaseComponent {
  * ------------------------------------------------------------------------
  */
 
-EventHandler.on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE, Dropdown.dataApiKeydownHandler)
-EventHandler.on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown.dataApiKeydownHandler)
-EventHandler.on(document, EVENT_CLICK_DATA_API, Dropdown.clearMenus)
-EventHandler.on(document, EVENT_KEYUP_DATA_API, Dropdown.clearMenus)
-EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
+const documentRef = getDocument()
+
+EventHandler.on(documentRef, EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE, Dropdown.dataApiKeydownHandler)
+EventHandler.on(documentRef, EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown.dataApiKeydownHandler)
+EventHandler.on(documentRef, EVENT_CLICK_DATA_API, Dropdown.clearMenus)
+EventHandler.on(documentRef, EVENT_KEYUP_DATA_API, Dropdown.clearMenus)
+EventHandler.on(documentRef, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
   event.preventDefault()
   Dropdown.getOrCreateInstance(this).toggle()
 })
