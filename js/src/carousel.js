@@ -367,7 +367,7 @@ class Carousel extends BaseComponent {
       const indicators = SelectorEngine.find(SELECTOR_INDICATOR, this._indicatorsElement)
 
       for (let i = 0; i < indicators.length; i++) {
-        if (Number.parseInt(indicators[i].getAttribute('data-bs-slide-to'), 10) === this._getItemIndex(element)) {
+        if (Number.parseInt(Manipulator.getDataAttribute(indicators[i], 'slide-to'), 10) === this._getItemIndex(element)) {
           indicators[i].classList.add(CLASS_NAME_ACTIVE)
           indicators[i].setAttribute('aria-current', 'true')
           break
@@ -383,7 +383,7 @@ class Carousel extends BaseComponent {
       return
     }
 
-    const elementInterval = Number.parseInt(element.getAttribute('data-bs-interval'), 10)
+    const elementInterval = Number.parseInt(Manipulator.getDataAttribute(element, 'interval'), 10)
 
     if (elementInterval) {
       this._config.defaultInterval = this._config.defaultInterval || this._config.interval
@@ -547,7 +547,7 @@ class Carousel extends BaseComponent {
       ...Manipulator.getDataAttributes(target),
       ...Manipulator.getDataAttributes(this)
     }
-    const slideIndex = this.getAttribute('data-bs-slide-to')
+    const slideIndex = Manipulator.getDataAttribute(this, 'slide-to')
 
     if (slideIndex) {
       config.interval = false
