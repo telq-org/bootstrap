@@ -43,7 +43,7 @@ const CLASS_NAME_ACTIVE = 'active'
 const SELECTOR_DATA_SPY = '[data-bs-spy="scroll"]'
 const SELECTOR_NAV_LIST_GROUP = '.nav, .list-group'
 const SELECTOR_NAV_LINKS = '.nav-link'
-// const SELECTOR_NAV_ITEMS = '.nav-item'
+const SELECTOR_NAV_ITEMS = '.nav-item'
 const SELECTOR_LIST_ITEMS = '.list-group-item'
 const SELECTOR_DROPDOWN = '.dropdown'
 const SELECTOR_DROPDOWN_TOGGLE = '.dropdown-toggle'
@@ -95,7 +95,9 @@ class ScrollSpy extends BaseComponent {
       this._observer = this._getNewObserver()
     }
 
-    this._observableSections.forEach(section => this._observer.observe(section))
+    for (const section of this._observableSections) {
+      this._observer.observe(section)
+    }
   }
 
   dispose() {
@@ -136,13 +138,21 @@ class ScrollSpy extends BaseComponent {
     if (target.classList.contains(CLASS_NAME_DROPDOWN_ITEM)) { // Activate dropdown parents
       SelectorEngine.findOne(SELECTOR_DROPDOWN_TOGGLE, target.closest(SELECTOR_DROPDOWN))
         .classList.add(CLASS_NAME_ACTIVE)
-    }
+    } else {
+      for (const listGroup of SelectorEngine.parents(target, SELECTOR_NAV_LIST_GROUP)) {
+        // Set triggered links parents as active
+        // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
+        for (const item of SelectorEngine.prev(listGroup, `${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}`)) {
+          item.classList.add(CLASS_NAME_ACTIVE)
+        }
 
-    for (const listGroup of SelectorEngine.parents(target, SELECTOR_NAV_LIST_GROUP)) {
-      // Set triggered links parents as active
-      // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
-      SelectorEngine.prev(listGroup, `${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}`)
-        .forEach(item => item.classList.add(CLASS_NAME_ACTIVE))
+        // Handle special case when .nav-link is inside .nav-item
+        for (const navItem of SelectorEngine.prev(listGroup, SELECTOR_NAV_ITEMS)) {
+          for (const item of SelectorEngine.children(navItem, SELECTOR_NAV_LINKS)) {
+            item.classList.add(CLASS_NAME_ACTIVE)
+          }
+        }
+      }
     }
 
     EventHandler.trigger(this._element, EVENT_ACTIVATE, {
@@ -155,42 +165,47 @@ class ScrollSpy extends BaseComponent {
       parent.classList.remove(CLASS_NAME_ACTIVE)
     }
 
-    SelectorEngine.find(`.${CLASS_NAME_ACTIVE}`, parent)
-      .forEach(node => node.classList.remove(CLASS_NAME_ACTIVE))
+    for (const node of SelectorEngine.find(`.${CLASS_NAME_ACTIVE}`, parent)) {
+      node.classList.remove(CLASS_NAME_ACTIVE)
+    }
   }
 
   _getNewObserver() {
     let previousVisibleEntryTop = 0
     let previousParentScrollTop = 0
 
+    const getTargetLink = entry => this._targetLinks.find(el => el.hash === `#${entry.target.id}`)
+
     const activate = entry => {
       previousVisibleEntryTop = entry.target.offsetTop
-      const targetToActivate = this._targetLinks.find(el => el.hash === `#${entry.target.id}`)
+      const targetToActivate = getTargetLink(entry)
       this._process(targetToActivate)
     }
 
     const callback = entries => {
       const parentScrollTop = this._element.scrollTop
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
+      let previousIntersectionRatio = 0
+      for (const entry of entries) {
+        if (entry.isIntersecting && previousIntersectionRatio < entry.intersectionRatio) {
           const { offsetTop } = entry.target
+          previousIntersectionRatio = entry.intersectionRatio
           const userScrollsDown = parentScrollTop >= previousParentScrollTop
 
           if (userScrollsDown && offsetTop >= previousVisibleEntryTop) { // if we are scrolling down, pick the bigger offsetTop
             activate(entry)
-            return
+            continue
           }
 
-          if (!userScrollsDown && offsetTop < previousVisibleEntryTop) {// if we are scrolling up, pick the smallest offsetTop
+          if (!userScrollsDown && offsetTop < previousVisibleEntryTop) { // if we are scrolling up, pick the smallest offsetTop
             activate(entry)
           }
 
-          return
+          continue
         }
 
-        const notVisibleElement = this._targetLinks.find(el => el.hash === `#${entry.target.id}`)
+        const notVisibleElement = getTargetLink(entry)
         this._clearActiveClass(notVisibleElement)
-      })
+      }
 
       previousParentScrollTop = this._element.scrollTop
     }
@@ -236,8 +251,9 @@ class ScrollSpy extends BaseComponent {
  */
 
 EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
-  SelectorEngine.find(SELECTOR_DATA_SPY)
-    .forEach(spy => new ScrollSpy(spy))
+  for (const spy of SelectorEngine.find(SELECTOR_DATA_SPY)) {
+    new ScrollSpy(spy) // eslint-disable-line no-new
+  }
 })
 
 /**
