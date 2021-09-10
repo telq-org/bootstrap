@@ -8,9 +8,9 @@
 import {
   defineJQueryPlugin,
   getElementFromSelector,
+  getNextActiveElement,
   isRTL,
   isVisible,
-  getNextActiveElement,
   reflow,
   triggerTransitionEnd,
   typeCheckConfig
