@@ -569,8 +569,8 @@ EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_SLIDE, function (e
 EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
   const carousels = SelectorEngine.find(SELECTOR_DATA_RIDE)
 
-  for (let i = 0, len = carousels.length; i < len; i++) {
-    Carousel.carouselInterface(carousels[i], Carousel.getInstance(carousels[i]))
+  for (const carousel of carousels) {
+    Carousel.getOrCreateInstance(carousel)
   }
 })
 
