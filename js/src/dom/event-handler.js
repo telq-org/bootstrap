@@ -78,11 +78,11 @@ const nativeEvents = new Set([
  * ------------------------------------------------------------------------
  */
 
-function getUidEvent(element, uid) {
+const getUidEvent = (element, uid) => {
   return (uid && `${uid}::${uidEvent++}`) || element.uidEvent || uidEvent++
 }
 
-function getEvent(element) {
+const getEvent = element => {
   const uid = getUidEvent(element)
 
   element.uidEvent = uid
@@ -91,7 +91,7 @@ function getEvent(element) {
   return eventRegistry[uid]
 }
 
-function bootstrapHandler(element, fn) {
+const bootstrapHandler = (element, fn) => {
   return function handler(event) {
     event.delegateTarget = element
 
@@ -103,7 +103,7 @@ function bootstrapHandler(element, fn) {
   }
 }
 
-function bootstrapDelegationHandler(element, selector, fn) {
+const bootstrapDelegationHandler = (element, selector, fn) => {
   return function handler(event) {
     const domElements = element.querySelectorAll(selector)
 
@@ -126,7 +126,7 @@ function bootstrapDelegationHandler(element, selector, fn) {
   }
 }
 
-function findHandler(events, handler, delegationSelector = null) {
+const findHandler = (events, handler, delegationSelector = null) => {
   const uidEventList = Object.keys(events)
 
   for (const element of uidEventList) {
@@ -140,7 +140,7 @@ function findHandler(events, handler, delegationSelector = null) {
   return null
 }
 
-function normalizeParams(originalTypeEvent, handler, delegationFn) {
+const normalizeParams = (originalTypeEvent, handler, delegationFn) => {
   const delegation = typeof handler === 'string'
   const originalHandler = delegation ? delegationFn : handler
 
@@ -154,7 +154,7 @@ function normalizeParams(originalTypeEvent, handler, delegationFn) {
   return [delegation, originalHandler, typeEvent]
 }
 
-function addHandler(element, originalTypeEvent, handler, delegationFn, oneOff) {
+const addHandler = (element, originalTypeEvent, handler, delegationFn, oneOff) => {
   if (typeof originalTypeEvent !== 'string' || !element) {
     return
   }
@@ -207,7 +207,7 @@ function addHandler(element, originalTypeEvent, handler, delegationFn, oneOff) {
   element.addEventListener(typeEvent, fn, delegation)
 }
 
-function removeHandler(element, events, typeEvent, handler, delegationSelector) {
+const removeHandler = (element, events, typeEvent, handler, delegationSelector) => {
   const fn = findHandler(events[typeEvent], handler, delegationSelector)
 
   if (!fn) {
@@ -218,7 +218,7 @@ function removeHandler(element, events, typeEvent, handler, delegationSelector) 
   delete events[typeEvent][fn.uidEvent]
 }
 
-function removeNamespacedHandlers(element, events, typeEvent, namespace) {
+const removeNamespacedHandlers = (element, events, typeEvent, namespace) => {
   const storeElementEvent = events[typeEvent] || {}
 
   for (const handlerKey of Object.keys(storeElementEvent)) {
@@ -230,7 +230,7 @@ function removeNamespacedHandlers(element, events, typeEvent, namespace) {
   }
 }
 
-function getTypeEvent(event) {
+const getTypeEvent = event => {
   // allow to get the native events from namespaced events ('click.bs.button' --> 'click')
   event = event.replace(stripNameRegex, '')
   return customEvents[event] || event

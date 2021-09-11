@@ -15,7 +15,7 @@ describe('ScrollSpy', () => {
     const paddingTop = 5
     const scrollHeight = Math.ceil(contentEl.scrollTop + Manipulator.position(target).top) + paddingTop
 
-    function listener() {
+    const listener = () => {
       expect(element.classList.contains('active')).toEqual(true)
       contentEl.removeEventListener('scroll', listener)
       expect(scrollSpy._process).toHaveBeenCalled()

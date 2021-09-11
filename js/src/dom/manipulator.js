@@ -5,7 +5,7 @@
  * --------------------------------------------------------------------------
  */
 
-function normalizeData(val) {
+const normalizeData = val => {
   if (val === 'true') {
     return true
   }
@@ -25,7 +25,7 @@ function normalizeData(val) {
   return val
 }
 
-function normalizeDataKey(key) {
+const normalizeDataKey = key => {
   return key.replace(/[A-Z]/g, chr => `-${chr.toLowerCase()}`)
 }
 

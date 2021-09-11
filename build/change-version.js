@@ -26,15 +26,11 @@ const GLOBBY_OPTIONS = {
 }
 
 // Blame TC39... https://github.com/benjamingr/RegExp.escape/issues/37
-function regExpQuote(string) {
-  return string.replace(/[$()*+-.?[\\\]^{|}]/g, '\\$&')
-}
+const regExpQuote = string => string.replace(/[$()*+-.?[\\\]^{|}]/g, '\\$&')
 
-function regExpQuoteReplacement(string) {
-  return string.replace(/\$/g, '$$')
-}
+const regExpQuoteReplacement = string => string.replace(/\$/g, '$$')
 
-async function replaceRecursively(file, oldVersion, newVersion) {
+const replaceRecursively = async (file, oldVersion, newVersion) => {
   const originalString = await fs.readFile(file, 'utf8')
   const newString = originalString.replace(
     new RegExp(regExpQuote(oldVersion), 'g'), regExpQuoteReplacement(newVersion)
@@ -56,7 +52,7 @@ async function replaceRecursively(file, oldVersion, newVersion) {
   await fs.writeFile(file, newString, 'utf8')
 }
 
-async function main(args) {
+const main = async args => {
   const [oldVersion, newVersion] = args
 
   if (!oldVersion || !newVersion) {

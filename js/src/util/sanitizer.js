@@ -82,7 +82,7 @@ export const DefaultAllowlist = {
   ul: []
 }
 
-export function sanitizeHtml(unsafeHtml, allowList, sanitizeFn) {
+export const sanitizeHtml = (unsafeHtml, allowList, sanitizeFn) => {
   if (!unsafeHtml.length) {
     return unsafeHtml
   }

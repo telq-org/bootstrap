@@ -55,6 +55,7 @@ describe('Sanitizer', () => {
         '</div>'
       ].join('')
 
+      // eslint-disable-next-line func-style
       function mySanitize(htmlUnsafe) {
         return htmlUnsafe
       }
