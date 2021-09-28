@@ -7,7 +7,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('./dom/event-handler.js'), require('./base-component.js')) :
   typeof define === 'function' && define.amd ? define(['./dom/event-handler', './base-component'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Alert = factory(global.EventHandler, global.Base));
-}(this, (function (EventHandler, BaseComponent) { 'use strict';
+})(this, (function (EventHandler, BaseComponent) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -124,7 +124,7 @@
   const enableDismissTrigger = (component, method = 'hide') => {
     const clickEvent = `click.dismiss${component.EVENT_KEY}`;
     const name = component.NAME;
-    EventHandler__default['default'].on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
+    EventHandler__default["default"].on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
       if (['A', 'AREA'].includes(this.tagName)) {
         event.preventDefault();
       }
@@ -165,7 +165,7 @@
    * ------------------------------------------------------------------------
    */
 
-  class Alert extends BaseComponent__default['default'] {
+  class Alert extends BaseComponent__default["default"] {
     // Getters
     static get NAME() {
       return NAME;
@@ -173,7 +173,7 @@
 
 
     close() {
-      const closeEvent = EventHandler__default['default'].trigger(this._element, EVENT_CLOSE);
+      const closeEvent = EventHandler__default["default"].trigger(this._element, EVENT_CLOSE);
 
       if (closeEvent.defaultPrevented) {
         return;
@@ -190,7 +190,7 @@
     _destroyElement() {
       this._element.remove();
 
-      EventHandler__default['default'].trigger(this._element, EVENT_CLOSED);
+      EventHandler__default["default"].trigger(this._element, EVENT_CLOSED);
       this.dispose();
     } // Static
 
@@ -231,5 +231,5 @@
 
   return Alert;
 
-})));
+}));
 //# sourceMappingURL=alert.js.map

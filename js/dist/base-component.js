@@ -7,7 +7,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('./dom/data.js'), require('./dom/event-handler.js')) :
   typeof define === 'function' && define.amd ? define(['./dom/data', './dom/event-handler'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Base = factory(global.Data, global.EventHandler));
-}(this, (function (Data, EventHandler) { 'use strict';
+})(this, (function (Data, EventHandler) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -134,12 +134,12 @@
       }
 
       this._element = element;
-      Data__default['default'].set(this._element, this.constructor.DATA_KEY, this);
+      Data__default["default"].set(this._element, this.constructor.DATA_KEY, this);
     }
 
     dispose() {
-      Data__default['default'].remove(this._element, this.constructor.DATA_KEY);
-      EventHandler__default['default'].off(this._element, this.constructor.EVENT_KEY);
+      Data__default["default"].remove(this._element, this.constructor.DATA_KEY);
+      EventHandler__default["default"].off(this._element, this.constructor.EVENT_KEY);
       Object.getOwnPropertyNames(this).forEach(propertyName => {
         this[propertyName] = null;
       });
@@ -152,7 +152,7 @@
 
 
     static getInstance(element) {
-      return Data__default['default'].get(getElement(element), this.DATA_KEY);
+      return Data__default["default"].get(getElement(element), this.DATA_KEY);
     }
 
     static getOrCreateInstance(element, config = {}) {
@@ -179,5 +179,5 @@
 
   return BaseComponent;
 
-})));
+}));
 //# sourceMappingURL=base-component.js.map

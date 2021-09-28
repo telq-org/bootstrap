@@ -7,7 +7,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('./dom/event-handler.js'), require('./base-component.js')) :
   typeof define === 'function' && define.amd ? define(['./dom/event-handler', './base-component'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Button = factory(global.EventHandler, global.Base));
-}(this, (function (EventHandler, BaseComponent) { 'use strict';
+})(this, (function (EventHandler, BaseComponent) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -94,7 +94,7 @@
    * ------------------------------------------------------------------------
    */
 
-  class Button extends BaseComponent__default['default'] {
+  class Button extends BaseComponent__default["default"] {
     // Getters
     static get NAME() {
       return NAME;
@@ -125,7 +125,7 @@
    */
 
 
-  EventHandler__default['default'].on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, event => {
+  EventHandler__default["default"].on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, event => {
     event.preventDefault();
     const button = event.target.closest(SELECTOR_DATA_TOGGLE);
     const data = Button.getOrCreateInstance(button);
@@ -142,5 +142,5 @@
 
   return Button;
 
-})));
+}));
 //# sourceMappingURL=button.js.map

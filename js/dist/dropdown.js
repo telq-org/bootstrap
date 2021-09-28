@@ -7,7 +7,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@popperjs/core'), require('./dom/event-handler.js'), require('./dom/manipulator.js'), require('./dom/selector-engine.js'), require('./base-component.js')) :
   typeof define === 'function' && define.amd ? define(['@popperjs/core', './dom/event-handler', './dom/manipulator', './dom/selector-engine', './base-component'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Dropdown = factory(global.Popper, global.EventHandler, global.Manipulator, global.SelectorEngine, global.Base));
-}(this, (function (Popper, EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
+})(this, (function (Popper, EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -20,14 +20,12 @@
           var d = Object.getOwnPropertyDescriptor(e, k);
           Object.defineProperty(n, k, d.get ? d : {
             enumerable: true,
-            get: function () {
-              return e[k];
-            }
+            get: function () { return e[k]; }
           });
         }
       });
     }
-    n['default'] = e;
+    n["default"] = e;
     return Object.freeze(n);
   }
 
@@ -289,7 +287,7 @@
    * ------------------------------------------------------------------------
    */
 
-  class Dropdown extends BaseComponent__default['default'] {
+  class Dropdown extends BaseComponent__default["default"] {
     constructor(element, config) {
       super(element);
       this._popper = null;
@@ -324,7 +322,7 @@
       const relatedTarget = {
         relatedTarget: this._element
       };
-      const showEvent = EventHandler__default['default'].trigger(this._element, EVENT_SHOW, relatedTarget);
+      const showEvent = EventHandler__default["default"].trigger(this._element, EVENT_SHOW, relatedTarget);
 
       if (showEvent.defaultPrevented) {
         return;
@@ -333,7 +331,7 @@
       const parent = Dropdown.getParentFromElement(this._element); // Totally disable Popper for Dropdowns in Navbar
 
       if (this._inNavbar) {
-        Manipulator__default['default'].setDataAttribute(this._menu, 'popper', 'none');
+        Manipulator__default["default"].setDataAttribute(this._menu, 'popper', 'none');
       } else {
         this._createPopper(parent);
       } // If this is a touch-enabled device we add extra
@@ -343,7 +341,7 @@
 
 
       if ('ontouchstart' in document.documentElement && !parent.closest(SELECTOR_NAVBAR_NAV)) {
-        [].concat(...document.body.children).forEach(elem => EventHandler__default['default'].on(elem, 'mouseover', noop));
+        [].concat(...document.body.children).forEach(elem => EventHandler__default["default"].on(elem, 'mouseover', noop));
       }
 
       this._element.focus();
@@ -354,7 +352,7 @@
 
       this._element.classList.add(CLASS_NAME_SHOW);
 
-      EventHandler__default['default'].trigger(this._element, EVENT_SHOWN, relatedTarget);
+      EventHandler__default["default"].trigger(this._element, EVENT_SHOWN, relatedTarget);
     }
 
     hide() {
@@ -387,7 +385,7 @@
 
 
     _completeHide(relatedTarget) {
-      const hideEvent = EventHandler__default['default'].trigger(this._element, EVENT_HIDE, relatedTarget);
+      const hideEvent = EventHandler__default["default"].trigger(this._element, EVENT_HIDE, relatedTarget);
 
       if (hideEvent.defaultPrevented) {
         return;
@@ -396,7 +394,7 @@
 
 
       if ('ontouchstart' in document.documentElement) {
-        [].concat(...document.body.children).forEach(elem => EventHandler__default['default'].off(elem, 'mouseover', noop));
+        [].concat(...document.body.children).forEach(elem => EventHandler__default["default"].off(elem, 'mouseover', noop));
       }
 
       if (this._popper) {
@@ -409,13 +407,13 @@
 
       this._element.setAttribute('aria-expanded', 'false');
 
-      Manipulator__default['default'].removeDataAttribute(this._menu, 'popper');
-      EventHandler__default['default'].trigger(this._element, EVENT_HIDDEN, relatedTarget);
+      Manipulator__default["default"].removeDataAttribute(this._menu, 'popper');
+      EventHandler__default["default"].trigger(this._element, EVENT_HIDDEN, relatedTarget);
     }
 
     _getConfig(config) {
       config = { ...this.constructor.Default,
-        ...Manipulator__default['default'].getDataAttributes(this._element),
+        ...Manipulator__default["default"].getDataAttributes(this._element),
         ...config
       };
       typeCheckConfig(NAME, config, this.constructor.DefaultType);
@@ -449,7 +447,7 @@
       this._popper = Popper__namespace.createPopper(referenceElement, this._menu, popperConfig);
 
       if (isDisplayStatic) {
-        Manipulator__default['default'].setDataAttribute(this._menu, 'popper', 'static');
+        Manipulator__default["default"].setDataAttribute(this._menu, 'popper', 'static');
       }
     }
 
@@ -458,7 +456,7 @@
     }
 
     _getMenuElement() {
-      return SelectorEngine__default['default'].next(this._element, SELECTOR_MENU)[0];
+      return SelectorEngine__default["default"].next(this._element, SELECTOR_MENU)[0];
     }
 
     _getPlacement() {
@@ -534,7 +532,7 @@
       key,
       target
     }) {
-      const items = SelectorEngine__default['default'].find(SELECTOR_VISIBLE_ITEMS, this._menu).filter(isVisible);
+      const items = SelectorEngine__default["default"].find(SELECTOR_VISIBLE_ITEMS, this._menu).filter(isVisible);
 
       if (!items.length) {
         return;
@@ -567,7 +565,7 @@
         return;
       }
 
-      const toggles = SelectorEngine__default['default'].find(SELECTOR_DATA_TOGGLE);
+      const toggles = SelectorEngine__default["default"].find(SELECTOR_DATA_TOGGLE);
 
       for (let i = 0, len = toggles.length; i < len; i++) {
         const context = Dropdown.getInstance(toggles[i]);
@@ -635,7 +633,7 @@
         return;
       }
 
-      const getToggleButton = this.matches(SELECTOR_DATA_TOGGLE) ? this : SelectorEngine__default['default'].prev(this, SELECTOR_DATA_TOGGLE)[0];
+      const getToggleButton = this.matches(SELECTOR_DATA_TOGGLE) ? this : SelectorEngine__default["default"].prev(this, SELECTOR_DATA_TOGGLE)[0];
       const instance = Dropdown.getOrCreateInstance(getToggleButton);
 
       if (event.key === ESCAPE_KEY) {
@@ -666,11 +664,11 @@
    */
 
 
-  EventHandler__default['default'].on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE, Dropdown.dataApiKeydownHandler);
-  EventHandler__default['default'].on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown.dataApiKeydownHandler);
-  EventHandler__default['default'].on(document, EVENT_CLICK_DATA_API, Dropdown.clearMenus);
-  EventHandler__default['default'].on(document, EVENT_KEYUP_DATA_API, Dropdown.clearMenus);
-  EventHandler__default['default'].on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
+  EventHandler__default["default"].on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_DATA_TOGGLE, Dropdown.dataApiKeydownHandler);
+  EventHandler__default["default"].on(document, EVENT_KEYDOWN_DATA_API, SELECTOR_MENU, Dropdown.dataApiKeydownHandler);
+  EventHandler__default["default"].on(document, EVENT_CLICK_DATA_API, Dropdown.clearMenus);
+  EventHandler__default["default"].on(document, EVENT_KEYUP_DATA_API, Dropdown.clearMenus);
+  EventHandler__default["default"].on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
     event.preventDefault();
     Dropdown.getOrCreateInstance(this).toggle();
   });
@@ -685,5 +683,5 @@
 
   return Dropdown;
 
-})));
+}));
 //# sourceMappingURL=dropdown.js.map

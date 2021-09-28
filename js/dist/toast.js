@@ -7,7 +7,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('./dom/event-handler.js'), require('./dom/manipulator.js'), require('./base-component.js')) :
   typeof define === 'function' && define.amd ? define(['./dom/event-handler', './dom/manipulator', './base-component'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Toast = factory(global.EventHandler, global.Manipulator, global.Base));
-}(this, (function (EventHandler, Manipulator, BaseComponent) { 'use strict';
+})(this, (function (EventHandler, Manipulator, BaseComponent) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -171,7 +171,7 @@
   const enableDismissTrigger = (component, method = 'hide') => {
     const clickEvent = `click.dismiss${component.EVENT_KEY}`;
     const name = component.NAME;
-    EventHandler__default['default'].on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
+    EventHandler__default["default"].on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
       if (['A', 'AREA'].includes(this.tagName)) {
         event.preventDefault();
       }
@@ -231,7 +231,7 @@
    * ------------------------------------------------------------------------
    */
 
-  class Toast extends BaseComponent__default['default'] {
+  class Toast extends BaseComponent__default["default"] {
     constructor(element, config) {
       super(element);
       this._config = this._getConfig(config);
@@ -257,7 +257,7 @@
 
 
     show() {
-      const showEvent = EventHandler__default['default'].trigger(this._element, EVENT_SHOW);
+      const showEvent = EventHandler__default["default"].trigger(this._element, EVENT_SHOW);
 
       if (showEvent.defaultPrevented) {
         return;
@@ -272,7 +272,7 @@
       const complete = () => {
         this._element.classList.remove(CLASS_NAME_SHOWING);
 
-        EventHandler__default['default'].trigger(this._element, EVENT_SHOWN);
+        EventHandler__default["default"].trigger(this._element, EVENT_SHOWN);
 
         this._maybeScheduleHide();
       };
@@ -294,7 +294,7 @@
         return;
       }
 
-      const hideEvent = EventHandler__default['default'].trigger(this._element, EVENT_HIDE);
+      const hideEvent = EventHandler__default["default"].trigger(this._element, EVENT_HIDE);
 
       if (hideEvent.defaultPrevented) {
         return;
@@ -308,7 +308,7 @@
 
         this._element.classList.remove(CLASS_NAME_SHOW);
 
-        EventHandler__default['default'].trigger(this._element, EVENT_HIDDEN);
+        EventHandler__default["default"].trigger(this._element, EVENT_HIDDEN);
       };
 
       this._element.classList.add(CLASS_NAME_SHOWING);
@@ -329,7 +329,7 @@
 
     _getConfig(config) {
       config = { ...Default,
-        ...Manipulator__default['default'].getDataAttributes(this._element),
+        ...Manipulator__default["default"].getDataAttributes(this._element),
         ...(typeof config === 'object' && config ? config : {})
       };
       typeCheckConfig(NAME, config, this.constructor.DefaultType);
@@ -379,10 +379,10 @@
     }
 
     _setListeners() {
-      EventHandler__default['default'].on(this._element, EVENT_MOUSEOVER, event => this._onInteraction(event, true));
-      EventHandler__default['default'].on(this._element, EVENT_MOUSEOUT, event => this._onInteraction(event, false));
-      EventHandler__default['default'].on(this._element, EVENT_FOCUSIN, event => this._onInteraction(event, true));
-      EventHandler__default['default'].on(this._element, EVENT_FOCUSOUT, event => this._onInteraction(event, false));
+      EventHandler__default["default"].on(this._element, EVENT_MOUSEOVER, event => this._onInteraction(event, true));
+      EventHandler__default["default"].on(this._element, EVENT_MOUSEOUT, event => this._onInteraction(event, false));
+      EventHandler__default["default"].on(this._element, EVENT_FOCUSIN, event => this._onInteraction(event, true));
+      EventHandler__default["default"].on(this._element, EVENT_FOCUSOUT, event => this._onInteraction(event, false));
     }
 
     _clearTimeout() {
@@ -419,5 +419,5 @@
 
   return Toast;
 
-})));
+}));
 //# sourceMappingURL=toast.js.map
