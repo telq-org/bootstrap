@@ -9,9 +9,9 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Popover = factory(global.Tooltip));
 })(this, (function (Tooltip) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
-  var Tooltip__default = /*#__PURE__*/_interopDefaultLegacy(Tooltip);
+  const Tooltip__default = /*#__PURE__*/_interopDefaultLegacy(Tooltip);
 
   /**
    * --------------------------------------------------------------------------
@@ -84,14 +84,14 @@
   const DATA_KEY = 'bs.popover';
   const EVENT_KEY = `.${DATA_KEY}`;
   const CLASS_PREFIX = 'bs-popover';
-  const Default = { ...Tooltip__default["default"].Default,
+  const Default = { ...Tooltip__default.default.Default,
     placement: 'right',
     offset: [0, 8],
     trigger: 'click',
     content: '',
     template: '<div class="popover" role="tooltip">' + '<div class="popover-arrow"></div>' + '<h3 class="popover-header"></h3>' + '<div class="popover-body"></div>' + '</div>'
   };
-  const DefaultType = { ...Tooltip__default["default"].DefaultType,
+  const DefaultType = { ...Tooltip__default.default.DefaultType,
     content: '(string|element|function)'
   };
   const Event = {
@@ -114,7 +114,7 @@
    * ------------------------------------------------------------------------
    */
 
-  class Popover extends Tooltip__default["default"] {
+  class Popover extends Tooltip__default.default {
     // Getters
     static get Default() {
       return Default;

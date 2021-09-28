@@ -621,7 +621,7 @@
    * ------------------------------------------------------------------------
    */
   const elementMap = new Map();
-  var Data = {
+  const Data = {
     set(element, key, instance) {
       if (!elementMap.has(element)) {
         elementMap.set(element, new Map());
@@ -2069,7 +2069,7 @@
   } // eslint-disable-next-line import/no-unused-modules
 
 
-  var applyStyles$1 = {
+  const applyStyles$1 = {
     name: 'applyStyles',
     enabled: true,
     phase: 'write',
@@ -2359,7 +2359,7 @@
   } // eslint-disable-next-line import/no-unused-modules
 
 
-  var arrow$1 = {
+  const arrow$1 = {
     name: 'arrow',
     enabled: true,
     phase: 'main',
@@ -2505,7 +2505,7 @@
   } // eslint-disable-next-line import/no-unused-modules
 
 
-  var computeStyles$1 = {
+  const computeStyles$1 = {
     name: 'computeStyles',
     enabled: true,
     phase: 'beforeWrite',
@@ -2552,7 +2552,7 @@
   } // eslint-disable-next-line import/no-unused-modules
 
 
-  var eventListeners = {
+  const eventListeners = {
     name: 'eventListeners',
     enabled: true,
     phase: 'write',
@@ -3066,7 +3066,7 @@
   } // eslint-disable-next-line import/no-unused-modules
 
 
-  var flip$1 = {
+  const flip$1 = {
     name: 'flip',
     enabled: true,
     phase: 'main',
@@ -3128,7 +3128,7 @@
   } // eslint-disable-next-line import/no-unused-modules
 
 
-  var hide$1 = {
+  const hide$1 = {
     name: 'hide',
     enabled: true,
     phase: 'main',
@@ -3180,7 +3180,7 @@
   } // eslint-disable-next-line import/no-unused-modules
 
 
-  var offset$1 = {
+  const offset$1 = {
     name: 'offset',
     enabled: true,
     phase: 'main',
@@ -3204,7 +3204,7 @@
   } // eslint-disable-next-line import/no-unused-modules
 
 
-  var popperOffsets$1 = {
+  const popperOffsets$1 = {
     name: 'popperOffsets',
     enabled: true,
     phase: 'read',
@@ -3320,7 +3320,7 @@
   } // eslint-disable-next-line import/no-unused-modules
 
 
-  var preventOverflow$1 = {
+  const preventOverflow$1 = {
     name: 'preventOverflow',
     enabled: true,
     phase: 'main',
@@ -3670,41 +3670,41 @@
     defaultModifiers: defaultModifiers
   }); // eslint-disable-next-line import/no-unused-modules
 
-  var Popper = /*#__PURE__*/Object.freeze({
+  const Popper = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    popperGenerator: popperGenerator,
-    detectOverflow: detectOverflow,
+    popperGenerator,
+    detectOverflow,
     createPopperBase: createPopper$2,
-    createPopper: createPopper,
+    createPopper,
     createPopperLite: createPopper$1,
-    top: top,
-    bottom: bottom,
-    right: right,
-    left: left,
-    auto: auto,
-    basePlacements: basePlacements,
-    start: start,
-    end: end,
-    clippingParents: clippingParents,
-    viewport: viewport,
-    popper: popper,
-    reference: reference,
-    variationPlacements: variationPlacements,
-    placements: placements,
-    beforeRead: beforeRead,
-    read: read,
-    afterRead: afterRead,
-    beforeMain: beforeMain,
-    main: main,
-    afterMain: afterMain,
-    beforeWrite: beforeWrite,
-    write: write,
-    afterWrite: afterWrite,
-    modifierPhases: modifierPhases,
+    top,
+    bottom,
+    right,
+    left,
+    auto,
+    basePlacements,
+    start,
+    end,
+    clippingParents,
+    viewport,
+    popper,
+    reference,
+    variationPlacements,
+    placements,
+    beforeRead,
+    read,
+    afterRead,
+    beforeMain,
+    main,
+    afterMain,
+    beforeWrite,
+    write,
+    afterWrite,
+    modifierPhases,
     applyStyles: applyStyles$1,
     arrow: arrow$1,
     computeStyles: computeStyles$1,
-    eventListeners: eventListeners,
+    eventListeners,
     flip: flip$1,
     hide: hide$1,
     offset: offset$1,
@@ -6791,7 +6791,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
-  var index_umd = {
+  const index_umd = {
     Alert,
     Button,
     Carousel,

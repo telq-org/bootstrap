@@ -9,13 +9,13 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Collapse = factory(global.Data, global.EventHandler, global.Manipulator, global.SelectorEngine, global.Base));
 })(this, (function (Data, EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
 
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+  const _interopDefaultLegacy = e => e && typeof e === 'object' && 'default' in e ? e : { default: e };
 
-  var Data__default = /*#__PURE__*/_interopDefaultLegacy(Data);
-  var EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
-  var Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
-  var SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
-  var BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
+  const Data__default = /*#__PURE__*/_interopDefaultLegacy(Data);
+  const EventHandler__default = /*#__PURE__*/_interopDefaultLegacy(EventHandler);
+  const Manipulator__default = /*#__PURE__*/_interopDefaultLegacy(Manipulator);
+  const SelectorEngine__default = /*#__PURE__*/_interopDefaultLegacy(SelectorEngine);
+  const BaseComponent__default = /*#__PURE__*/_interopDefaultLegacy(BaseComponent);
 
   /**
    * --------------------------------------------------------------------------
@@ -215,18 +215,18 @@
    * ------------------------------------------------------------------------
    */
 
-  class Collapse extends BaseComponent__default["default"] {
+  class Collapse extends BaseComponent__default.default {
     constructor(element, config) {
       super(element);
       this._isTransitioning = false;
       this._config = this._getConfig(config);
       this._triggerArray = [];
-      const toggleList = SelectorEngine__default["default"].find(SELECTOR_DATA_TOGGLE);
+      const toggleList = SelectorEngine__default.default.find(SELECTOR_DATA_TOGGLE);
 
       for (let i = 0, len = toggleList.length; i < len; i++) {
         const elem = toggleList[i];
         const selector = getSelectorFromElement(elem);
-        const filterElement = SelectorEngine__default["default"].find(selector).filter(foundElem => foundElem === this._element);
+        const filterElement = SelectorEngine__default.default.find(selector).filter(foundElem => foundElem === this._element);
 
         if (selector !== null && filterElement.length) {
           this._selector = selector;
@@ -273,11 +273,11 @@
       let activesData;
 
       if (this._config.parent) {
-        const children = SelectorEngine__default["default"].find(CLASS_NAME_DEEPER_CHILDREN, this._config.parent);
-        actives = SelectorEngine__default["default"].find(SELECTOR_ACTIVES, this._config.parent).filter(elem => !children.includes(elem)); // remove children if greater depth
+        const children = SelectorEngine__default.default.find(CLASS_NAME_DEEPER_CHILDREN, this._config.parent);
+        actives = SelectorEngine__default.default.find(SELECTOR_ACTIVES, this._config.parent).filter(elem => !children.includes(elem)); // remove children if greater depth
       }
 
-      const container = SelectorEngine__default["default"].findOne(this._selector);
+      const container = SelectorEngine__default.default.findOne(this._selector);
 
       if (actives.length) {
         const tempActiveData = actives.find(elem => container !== elem);
@@ -288,7 +288,7 @@
         }
       }
 
-      const startEvent = EventHandler__default["default"].trigger(this._element, EVENT_SHOW);
+      const startEvent = EventHandler__default.default.trigger(this._element, EVENT_SHOW);
 
       if (startEvent.defaultPrevented) {
         return;
@@ -302,7 +302,7 @@
         }
 
         if (!activesData) {
-          Data__default["default"].set(elemActive, DATA_KEY, null);
+          Data__default.default.set(elemActive, DATA_KEY, null);
         }
       });
 
@@ -326,7 +326,7 @@
         this._element.classList.add(CLASS_NAME_COLLAPSE, CLASS_NAME_SHOW);
 
         this._element.style[dimension] = '';
-        EventHandler__default["default"].trigger(this._element, EVENT_SHOWN);
+        EventHandler__default.default.trigger(this._element, EVENT_SHOWN);
       };
 
       const capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
@@ -342,7 +342,7 @@
         return;
       }
 
-      const startEvent = EventHandler__default["default"].trigger(this._element, EVENT_HIDE);
+      const startEvent = EventHandler__default.default.trigger(this._element, EVENT_HIDE);
 
       if (startEvent.defaultPrevented) {
         return;
@@ -377,7 +377,7 @@
 
         this._element.classList.add(CLASS_NAME_COLLAPSE);
 
-        EventHandler__default["default"].trigger(this._element, EVENT_HIDDEN);
+        EventHandler__default.default.trigger(this._element, EVENT_HIDDEN);
       };
 
       this._element.style[dimension] = '';
@@ -392,7 +392,7 @@
 
     _getConfig(config) {
       config = { ...Default,
-        ...Manipulator__default["default"].getDataAttributes(this._element),
+        ...Manipulator__default.default.getDataAttributes(this._element),
         ...config
       };
       config.toggle = Boolean(config.toggle); // Coerce string values
@@ -411,8 +411,8 @@
         return;
       }
 
-      const children = SelectorEngine__default["default"].find(CLASS_NAME_DEEPER_CHILDREN, this._config.parent);
-      SelectorEngine__default["default"].find(SELECTOR_DATA_TOGGLE, this._config.parent).filter(elem => !children.includes(elem)).forEach(element => {
+      const children = SelectorEngine__default.default.find(CLASS_NAME_DEEPER_CHILDREN, this._config.parent);
+      SelectorEngine__default.default.find(SELECTOR_DATA_TOGGLE, this._config.parent).filter(elem => !children.includes(elem)).forEach(element => {
         const selected = getElementFromSelector(element);
 
         if (selected) {
@@ -466,14 +466,14 @@
    */
 
 
-  EventHandler__default["default"].on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
+  EventHandler__default.default.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
     // preventDefault only for <a> elements (which change the URL) not inside the collapsible element
     if (event.target.tagName === 'A' || event.delegateTarget && event.delegateTarget.tagName === 'A') {
       event.preventDefault();
     }
 
     const selector = getSelectorFromElement(this);
-    const selectorElements = SelectorEngine__default["default"].find(selector);
+    const selectorElements = SelectorEngine__default.default.find(selector);
     selectorElements.forEach(element => {
       Collapse.getOrCreateInstance(element, {
         toggle: false

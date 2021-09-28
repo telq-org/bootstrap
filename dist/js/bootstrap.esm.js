@@ -617,7 +617,7 @@ const EventHandler = {
  * ------------------------------------------------------------------------
  */
 const elementMap = new Map();
-var Data = {
+const Data = {
   set(element, key, instance) {
     if (!elementMap.has(element)) {
       elementMap.set(element, new Map());
