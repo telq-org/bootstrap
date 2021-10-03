@@ -12,12 +12,12 @@ For longer content, you can add a `.text-truncate` class to truncate the text wi
 <!-- Block level -->
 <div class="row">
   <div class="col-2 text-truncate">
-    This text is quite long, and will be truncated once displayed.
+    Praeterea iter est quasdam res quas ex communi.
   </div>
 </div>
 
 <!-- Inline level -->
 <span class="d-inline-block text-truncate" style="max-width: 150px;">
-  This text is quite long, and will be truncated once displayed.
+  Praeterea iter est quasdam res quas ex communi.
 </span>
 {{< /example >}}

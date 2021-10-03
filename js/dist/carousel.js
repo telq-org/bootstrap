@@ -1,5 +1,5 @@
 /*!
-  * Bootstrap carousel.js v5.1.1 (https://getbootstrap.com/)
+  * Bootstrap carousel.js v5.1.0 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
@@ -18,7 +18,7 @@
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.1): util/index.js
+   * Bootstrap (v5.1.0): util/index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -190,7 +190,7 @@
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v5.1.1): carousel.js
+   * Bootstrap (v5.1.0): carousel.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -415,12 +415,8 @@
     }
 
     _addTouchEventListeners() {
-      const hasPointerPenTouch = event => {
-        return this._pointerEvent && (event.pointerType === POINTER_TYPE_PEN || event.pointerType === POINTER_TYPE_TOUCH);
-      };
-
       const start = event => {
-        if (hasPointerPenTouch(event)) {
+        if (this._pointerEvent && (event.pointerType === POINTER_TYPE_PEN || event.pointerType === POINTER_TYPE_TOUCH)) {
           this.touchStartX = event.clientX;
         } else if (!this._pointerEvent) {
           this.touchStartX = event.touches[0].clientX;
@@ -433,7 +429,7 @@
       };
 
       const end = event => {
-        if (hasPointerPenTouch(event)) {
+        if (this._pointerEvent && (event.pointerType === POINTER_TYPE_PEN || event.pointerType === POINTER_TYPE_TOUCH)) {
           this.touchDeltaX = event.clientX - this.touchStartX;
         }
 
