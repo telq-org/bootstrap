@@ -1,5 +1,5 @@
 async function onTelegramAuth(user) {
-  const r = await fetch("https://94ac-180-249-186-90.ngrok-free.app/api/tg-login", {
+  const r = await fetch("https://telq.org/api/tg-login", {
     method: "POST",
     body: JSON.stringify(user)
   });
